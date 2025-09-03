@@ -26,4 +26,4 @@ export * from "./shadcn/progress";
 export * from "./shadcn/scroll-area";
 export * from "./shadcn/slider";
 export * from "./shadcn/toggle";
-export * from "./tremor/line-chart";
+// export * from "./tremor/line-chart";

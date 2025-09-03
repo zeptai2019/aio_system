@@ -279,7 +279,7 @@ export default function ControlPanel({
       }
     } else if (isAnalyzing) {
       // Reset all checks when starting analysis
-      const resetChecks = checks.map(check => ({ ...check, status: 'pending' }));
+      const resetChecks = checks.map(check => ({ ...check, status: 'pending' as const }));
       setChecks(resetChecks);
       setCombinedChecks(resetChecks); // Reset combined checks too
       setCurrentCheckIndex(0);

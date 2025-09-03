@@ -38,9 +38,9 @@ function calculateReadability(text: string): number {
 
 // Extract text content from HTML
 function extractTextContent(html: string): string {
-  // Remove script and style tags
-  let cleanHtml = html.replace(/<script[^>]*>.*?<\/script>/gis, '');
-  cleanHtml = cleanHtml.replace(/<style[^>]*>.*?<\/style>/gis, '');
+  // Remove script and style tags (using [\s\S] instead of . with s flag)
+  let cleanHtml = html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+  cleanHtml = cleanHtml.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
   
   // Remove HTML tags
   cleanHtml = cleanHtml.replace(/<[^>]+>/g, ' ');
@@ -295,15 +295,28 @@ async function checkAdditionalFiles(domain: string): Promise<{ robots: CheckResu
     recommendation: 'Add an llms.txt file to define AI usage permissions'
   };
   
+  // Store robots.txt content for sitemap extraction
+  let robotsText = '';
+  let sitemapUrls: string[] = [];
+  
   // Create all fetch promises in parallel
   const promises = [
     // Check robots.txt
     fetchWithTimeout(`${cleanUrl}/robots.txt`)
       .then(async (response) => {
         if (response.ok) {
-          const robotsText = await response.text();
-          const hasUserAgent = robotsText.includes('User-agent');
-          const hasSitemap = robotsText.includes('Sitemap');
+          robotsText = await response.text();
+          const hasUserAgent = robotsText.toLowerCase().includes('user-agent');
+          
+          // Extract sitemap URLs from robots.txt
+          const sitemapMatches = robotsText.match(/Sitemap:\s*(.+)/gi);
+          if (sitemapMatches) {
+            sitemapUrls = sitemapMatches.map(match => 
+              match.replace(/Sitemap:\s*/i, '').trim()
+            );
+          }
+          
+          const hasSitemap = sitemapUrls.length > 0;
           const score = (hasUserAgent ? 60 : 0) + (hasSitemap ? 40 : 0);
           
           robotsCheck = {
@@ -311,24 +324,8 @@ async function checkAdditionalFiles(domain: string): Promise<{ robots: CheckResu
             label: 'Robots.txt',
             status: score >= 80 ? 'pass' : score >= 40 ? 'warning' : 'fail',
             score,
-            details: `Robots.txt found${hasSitemap ? ' with sitemap reference' : ''}`,
+            details: `Robots.txt found${hasSitemap ? ` with ${sitemapUrls.length} sitemap reference(s)` : ''}`,
             recommendation: score < 80 ? 'Add sitemap reference to robots.txt' : 'Robots.txt properly configured'
-          };
-        }
-      })
-      .catch(() => {}), // Ignore errors, use default
-    
-    // Check sitemap
-    fetchWithTimeout(`${cleanUrl}/sitemap.xml`)
-      .then(async (response) => {
-        if (response.ok) {
-          sitemapCheck = {
-            id: 'sitemap',
-            label: 'Sitemap',
-            status: 'pass',
-            score: 100,
-            details: 'Valid XML sitemap found',
-            recommendation: 'Sitemap is properly configured'
           };
         }
       })
@@ -369,6 +366,58 @@ async function checkAdditionalFiles(domain: string): Promise<{ robots: CheckResu
   
   // Wait for all promises to complete (with timeout)
   await Promise.all(promises);
+  
+  // After checking robots.txt, now check for sitemaps
+  // First check URLs from robots.txt, then fallback to common locations
+  const possibleSitemapUrls = [...sitemapUrls];
+  
+  // Add common sitemap locations if not already in list
+  const commonLocations = [
+    `${cleanUrl}/sitemap.xml`,
+    `${cleanUrl}/sitemap_index.xml`,
+    `${cleanUrl}/sitemap-index.xml`,
+    `${cleanUrl}/sitemaps/sitemap.xml`,
+    `${cleanUrl}/sitemap/sitemap.xml`
+  ];
+  
+  for (const url of commonLocations) {
+    if (!possibleSitemapUrls.includes(url)) {
+      possibleSitemapUrls.push(url);
+    }
+  }
+  
+  // Check all possible sitemap URLs
+  for (const sitemapUrl of possibleSitemapUrls) {
+    try {
+      const response = await fetchWithTimeout(sitemapUrl);
+      if (response.ok) {
+        const content = await response.text();
+        // Verify it's actually an XML sitemap
+        const isValidSitemap = (
+          content.includes('<?xml') || 
+          content.includes('<urlset') || 
+          content.includes('<sitemapindex') ||
+          content.includes('<url>') ||
+          content.includes('<sitemap>')
+        ) && !content.includes('<!DOCTYPE html');
+        
+        if (isValidSitemap) {
+          const fromRobots = sitemapUrls.includes(sitemapUrl);
+          sitemapCheck = {
+            id: 'sitemap',
+            label: 'Sitemap',
+            status: 'pass',
+            score: 100,
+            details: `Valid XML sitemap found${fromRobots ? ' (referenced in robots.txt)' : ` at ${sitemapUrl.replace(cleanUrl, '')}`}`,
+            recommendation: 'Sitemap is properly configured'
+          };
+          break; // Found a valid sitemap, stop checking
+        }
+      }
+    } catch (error) {
+      // Continue checking other URLs
+    }
+  }
   
   return { robots: robotsCheck, sitemap: sitemapCheck, llms: llmsCheck };
 }

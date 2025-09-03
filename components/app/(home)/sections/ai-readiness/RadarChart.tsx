@@ -169,7 +169,7 @@ export default function RadarChart({ data, size = 300 }: RadarChartProps) {
               <motion.text
                 x={x}
                 y={y + dy}
-                textAnchor={textAnchor}
+                textAnchor={textAnchor as any}
                 dominantBaseline="middle"
                 className="text-xs fill-black-alpha-80 font-medium"
                 initial={{ opacity: 0 }}
@@ -183,7 +183,7 @@ export default function RadarChart({ data, size = 300 }: RadarChartProps) {
               <motion.text
                 x={x}
                 y={y + dy + 12}
-                textAnchor={textAnchor}
+                textAnchor={textAnchor as any}
                 dominantBaseline="middle"
                 className="text-[10px] fill-heat-100 font-bold"
                 initial={{ opacity: 0 }}
