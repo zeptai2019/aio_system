@@ -1,5 +1,7 @@
 # AI Ready Website
 
+<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzZyaXVlOXoyaGJmMGV5YzBlbXNod2U5emRrZ2lqZTM1eGI1aHlzZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/irNt0XtSKmenMRqMre/giphy.gif" width="100%" alt="AI Ready Website">
+
 A web application to analyze websites for AI readiness and optimization.
 
 ## Setup
