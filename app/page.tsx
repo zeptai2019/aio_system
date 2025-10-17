@@ -195,9 +195,8 @@ export default function StyleGuidePage() {
                   className="relative container px-16"
                 >
                   <div className="grid gap-12 items-center lg:grid-cols-2">
-                    <div>
-                  {/* HomeHeroBadge removed per request */}
-                  <HomeHeroTitle />
+  <div className="lg:col-span-2">
+    <HomeHeroTitle />
                   
                   <p className="text-center text-body-large">
                     単一のページスナップショットから、あなたのウェブページが

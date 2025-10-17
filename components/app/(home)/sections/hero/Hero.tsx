@@ -25,7 +25,7 @@ export default function HomeHero() {
 
         <HomeHeroBackground />
 
-        <div className="relative container px-16">
+        <div className="relative container px-16 flex flex-col items-center text-center">
           <HomeHeroBadge />
           <HomeHeroTitle />
 
