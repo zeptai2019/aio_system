@@ -61,57 +61,57 @@ export default function ControlPanel({
   const [checks, setChecks] = useState<CheckItem[]>([
     {
       id: 'heading-structure',
-      label: 'Heading Hierarchy',
-      description: 'H1-H6 structure',
+      label: '見出し階層',
+      description: 'H1-H6構造',
       icon: FileText,
       status: 'pending',
     },
     {
       id: 'readability',
-      label: 'Readability',
-      description: 'Content clarity',
+      label: '可読性',
+      description: 'コンテンツの明確性',
       icon: Globe,
       status: 'pending',
     },
     {
       id: 'meta-tags',
-      label: 'Metadata Quality',
-      description: 'Title, desc, author',
+      label: 'メタデータ品質',
+      description: 'タイトル、説明、作者',
       icon: FileCode,
       status: 'pending',
     },
     {
       id: 'semantic-html',
-      label: 'Semantic HTML',
-      description: 'Proper HTML5 tags',
+      label: 'セマンティックHTML',
+      description: '適切なHTML5タグ',
       icon: Code,
       status: 'pending',
     },
     {
       id: 'accessibility',
-      label: 'Accessibility',
-      description: 'Alt text & ARIA',
+      label: 'アクセシビリティ',
+      description: 'Altテキスト & ARIA',
       icon: Eye,
       status: 'pending',
     },
     {
       id: 'llms-txt',
       label: 'LLMs.txt',
-      description: 'AI permissions',
+      description: 'AI権限',
       icon: Bot,
       status: 'pending',
     },
     {
       id: 'robots-txt',
       label: 'Robots.txt',
-      description: 'Crawler rules',
+      description: 'クローラー規則',
       icon: Shield,
       status: 'pending',
     },
     {
       id: 'sitemap',
-      label: 'Sitemap',
-      description: 'Site structure',
+      label: 'サイトマップ',
+      description: 'サイト構造',
       icon: Network,
       status: 'pending',
     },
@@ -147,8 +147,8 @@ export default function ControlPanel({
         const placeholderAIChecks = [
           {
             id: 'ai-loading-0',
-            label: 'Content Quality for AI',
-            description: 'Analyzing content signal ratio...',
+            label: 'AI向けコンテンツ品質',
+            description: 'コンテンツ信号比率を分析中...',
             icon: Sparkles,
             status: 'checking' as const,
             score: 0,
@@ -157,8 +157,8 @@ export default function ControlPanel({
           },
           {
             id: 'ai-loading-1',
-            label: 'Information Architecture',
-            description: 'Evaluating page structure...',
+            label: '情報アーキテクチャ',
+            description: 'ページ構造を評価中...',
             icon: Bot,
             status: 'checking' as const,
             score: 0,
@@ -167,8 +167,8 @@ export default function ControlPanel({
           },
           {
             id: 'ai-loading-2',
-            label: 'Crawlability Patterns',
-            description: 'Checking JavaScript usage...',
+            label: 'クローラビリティパターン',
+            description: 'JavaScript使用状況を確認中...',
             icon: Database,
             status: 'checking' as const,
             score: 0,
@@ -177,8 +177,8 @@ export default function ControlPanel({
           },
           {
             id: 'ai-loading-3',
-            label: 'AI Training Value',
-            description: 'Assessing training potential...',
+            label: 'AI訓練価値',
+            description: '訓練ポテンシャルを評価中...',
             icon: Network,
             status: 'checking' as const,
             score: 0,
@@ -187,8 +187,8 @@ export default function ControlPanel({
           },
           {
             id: 'ai-loading-4',
-            label: 'Knowledge Extraction',
-            description: 'Analyzing entity definitions...',
+            label: '知識抽出',
+            description: 'エンティティ定義を分析中...',
             icon: FileCode,
             status: 'checking' as const,
             score: 0,
@@ -197,8 +197,8 @@ export default function ControlPanel({
           },
           {
             id: 'ai-loading-5',
-            label: 'Template Quality',
-            description: 'Reviewing semantic structure...',
+            label: 'テンプレート品質',
+            description: 'セマンティック構造を確認中...',
             icon: Shield,
             status: 'checking' as const,
             score: 0,
@@ -207,8 +207,8 @@ export default function ControlPanel({
           },
           {
             id: 'ai-loading-6',
-            label: 'Content Depth',
-            description: 'Measuring content richness...',
+            label: 'コンテンツ深度',
+            description: 'コンテンツの豊富さを測定中...',
             icon: Zap,
             status: 'checking' as const,
             score: 0,
@@ -217,8 +217,8 @@ export default function ControlPanel({
           },
           {
             id: 'ai-loading-7',
-            label: 'Machine Readability',
-            description: 'Testing extraction reliability...',
+            label: '機械可読性',
+            description: '抽出信頼性をテスト中...',
             icon: Globe,
             status: 'checking' as const,
             score: 0,
@@ -363,8 +363,8 @@ export default function ControlPanel({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h2 className="text-title-h2 text-accent-black mb-12">AI Readiness Analysis</h2>
-        <p className="text-body-large text-black-alpha-64">Single-page snapshot of {url}</p>
+        <h2 className="text-title-h2 text-accent-black mb-12">AI対応度分析</h2>
+        <p className="text-body-large text-black-alpha-64">単一ページのスナップショット: {url}</p>
         
         {showResults && (
           <>
@@ -383,7 +383,7 @@ export default function ControlPanel({
                     : 'bg-black-alpha-4 text-black-alpha-64 hover:bg-black-alpha-8'
                 }`}
               >
-                Grid View
+                グリッド表示
               </button>
               <button
                 onClick={() => setViewMode('chart')}
@@ -393,7 +393,7 @@ export default function ControlPanel({
                     : 'bg-black-alpha-4 text-black-alpha-64 hover:bg-black-alpha-8'
                 }`}
               >
-                Radar Chart
+                レーダーチャート
               </button>
               <button
                 onClick={() => setViewMode('bars')}
@@ -403,7 +403,7 @@ export default function ControlPanel({
                     : 'bg-black-alpha-4 text-black-alpha-64 hover:bg-black-alpha-8'
                 }`}
               >
-                Bar Chart
+                バーチャート
               </button>
             </motion.div>
             
@@ -532,11 +532,11 @@ export default function ControlPanel({
                     >
                       <div className="space-y-6">
                         <div>
-                          <div className="text-label-small text-black-alpha-48 mb-2">Status</div>
+                          <div className="text-label-small text-black-alpha-48 mb-2">ステータス</div>
                           <div className="text-body-small text-accent-black">{check.details}</div>
                         </div>
                         <div>
-                          <div className="text-label-small text-black-alpha-48 mb-2">Recommendation</div>
+                          <div className="text-label-small text-black-alpha-48 mb-2">推奨事項</div>
                           <div className="text-body-small text-black-alpha-64">{check.recommendation}</div>
                           {check.actionItems && check.actionItems.length > 0 && (
                             <ul className="mt-4 space-y-2">
@@ -607,7 +607,7 @@ export default function ControlPanel({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="text-label-large text-heat-100 mb-16 font-medium">AI Enhanced Analysis</h3>
+                <h3 className="text-label-large text-heat-100 mb-16 font-medium">AI強化分析</h3>
                 <RadarChart 
                   data={aiInsights
                     .filter(check => check.status !== 'pending' && check.status !== 'checking')
@@ -683,7 +683,7 @@ export default function ControlPanel({
             onClick={onReset}
             className="px-20 py-10 bg-accent-white border border-black-alpha-8 hover:bg-black-alpha-4 rounded-8 text-label-medium transition-all"
           >
-            Analyze Another Site
+            別のサイトを分析
           </button>
           {true && ( 
             <button 
@@ -695,8 +695,8 @@ export default function ControlPanel({
               const placeholderAIChecks = [
                 {
                   id: 'ai-loading-0',
-                  label: 'Content Quality for AI',
-                  description: 'Analyzing content signal ratio...',
+                  label: 'AI向けコンテンツ品質',
+                  description: 'コンテンツ信号比率を分析中...',
                   icon: Sparkles,
                   status: 'checking' as const,
                   score: 0,
@@ -705,8 +705,8 @@ export default function ControlPanel({
                 },
                 {
                   id: 'ai-loading-1',
-                  label: 'Information Architecture',
-                  description: 'Evaluating page structure...',
+                  label: '情報アーキテクチャ',
+                  description: 'ページ構造を評価中...',
                   icon: Bot,
                   status: 'checking' as const,
                   score: 0,
@@ -715,8 +715,8 @@ export default function ControlPanel({
                 },
                 {
                   id: 'ai-loading-2',
-                  label: 'Crawlability Patterns',
-                  description: 'Checking JavaScript usage...',
+                  label: 'クローラビリティパターン',
+                  description: 'JavaScript使用状況を確認中...',
                   icon: Database,
                   status: 'checking' as const,
                   score: 0,
@@ -725,8 +725,8 @@ export default function ControlPanel({
                 },
                 {
                   id: 'ai-loading-3',
-                  label: 'AI Training Value',
-                  description: 'Assessing training potential...',
+                  label: 'AI訓練価値',
+                  description: '訓練ポテンシャルを評価中...',
                   icon: Network,
                   status: 'checking' as const,
                   score: 0,
@@ -735,8 +735,8 @@ export default function ControlPanel({
                 },
                 {
                   id: 'ai-loading-4',
-                  label: 'Knowledge Extraction',
-                  description: 'Analyzing entity definitions...',
+                  label: '知識抽出',
+                  description: 'エンティティ定義を分析中...',
                   icon: FileCode,
                   status: 'checking' as const,
                   score: 0,
@@ -745,8 +745,8 @@ export default function ControlPanel({
                 },
                 {
                   id: 'ai-loading-5',
-                  label: 'Template Quality',
-                  description: 'Reviewing semantic structure...',
+                  label: 'テンプレート品質',
+                  description: 'セマンティック構造を確認中...',
                   icon: Shield,
                   status: 'checking' as const,
                   score: 0,
@@ -755,8 +755,8 @@ export default function ControlPanel({
                 },
                 {
                   id: 'ai-loading-6',
-                  label: 'Content Depth',
-                  description: 'Measuring content richness...',
+                  label: 'コンテンツ深度',
+                  description: 'コンテンツの豊富さを測定中...',
                   icon: Zap,
                   status: 'checking' as const,
                   score: 0,
@@ -765,8 +765,8 @@ export default function ControlPanel({
                 },
                 {
                   id: 'ai-loading-7',
-                  label: 'Machine Readability',
-                  description: 'Testing extraction reliability...',
+                  label: '機械可読性',
+                  description: '抽出信頼性をテスト中...',
                   icon: Globe,
                   status: 'checking' as const,
                   score: 0,
@@ -832,7 +832,7 @@ export default function ControlPanel({
             disabled={isAnalyzingAI}
             className="px-20 py-10 bg-accent-black hover:bg-black-alpha-80 text-white rounded-8 text-label-medium transition-all disabled:opacity-50"
           >
-              {isAnalyzingAI ? 'Analyzing...' : 'Analyze with AI'}
+              {isAnalyzingAI ? '分析中...' : 'AIで分析'}
             </button>
           )}
         </motion.div>

@@ -72,7 +72,7 @@ function python(Prism: any) {
     },
     punctuation: /[{}[\];(),.:"'`]/,
     function: {
-      pattern: /((?:^|\s)(?:Firecrawl|scrape_url)\b)/gm,
+      pattern: /((?:^|\s)(?:Zept|Firecrawl|scrape_url)\b)/gm,
       greedy: true,
     },
     keyword:

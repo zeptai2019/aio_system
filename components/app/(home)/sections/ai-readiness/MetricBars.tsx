@@ -126,18 +126,18 @@ export default function MetricBars({ metrics }: MetricBarsProps) {
                 >
                   <div className="pl-54 pr-12 py-12 space-y-8">
                     <div>
-                      <div className="text-label-small text-black-alpha-48 mb-4">Status</div>
+                      <div className="text-label-small text-black-alpha-48 mb-4">ステータス</div>
                       <div className="text-body-small text-accent-black">{metric.details}</div>
                     </div>
                     {metric.recommendation && (
                       <div>
-                        <div className="text-label-small text-black-alpha-48 mb-4">Recommendation</div>
+                        <div className="text-label-small text-black-alpha-48 mb-4">推奨事項</div>
                         <div className="text-body-small text-black-alpha-64">{metric.recommendation}</div>
                       </div>
                     )}
                     {metric.actionItems && metric.actionItems.length > 0 && (
                       <div>
-                        <div className="text-label-small text-black-alpha-48 mb-4">Action Items</div>
+                        <div className="text-label-small text-black-alpha-48 mb-4">アクション項目</div>
                         <ul className="space-y-4">
                           {metric.actionItems.map((item: string, i: number) => (
                             <li key={i} className="flex items-start gap-6 text-body-small text-black-alpha-64">

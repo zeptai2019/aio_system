@@ -24,12 +24,14 @@ export default function ScoreChart({ score, enhanced = false, size = 200 }: Scor
   // Calculate stroke dash offset for the progress
   const strokeDashoffset = circumference - (animatedScore / 100) * circumference;
   
-  // Determine color based on score
+  // Determine color based on score (use blue token palette)
   const getColor = () => {
-    if (score >= 80) return "#FF4A00"; // heat-200 - Excellent
-    if (score >= 60) return "#FF6500"; // heat-150 - Good
-    if (score >= 40) return "#FF8533"; // heat-100 - Warning
-    return "#FFA566"; // heat-50 - Poor
+    // Use CSS variables so the theme drives actual hue
+    // Fallback to heat-100 if heat-200 is not defined
+    if (score >= 80) return "var(--heat-200, var(--heat-100))"; // deeper royal blue (fallback safe)
+    if (score >= 60) return "var(--heat-100)"; // primary royal blue
+    if (score >= 40) return "var(--heat-40)"; // lighter blue
+    return "var(--heat-20)"; // faint blue
   };
   
   const getGradientId = enhanced ? "enhanced-gradient" : "normal-gradient";
@@ -40,7 +42,8 @@ export default function ScoreChart({ score, enhanced = false, size = 200 }: Scor
         <defs>
           <linearGradient id={getGradientId} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor={getColor()} stopOpacity="1" />
-            <stop offset="100%" stopColor={enhanced ? "#FF8533" : getColor()} stopOpacity="0.6" />
+            {/* When enhanced, lean into a stronger blue for the tail of the arc */}
+            <stop offset="100%" stopColor={enhanced ? "var(--heat-200, var(--heat-100))" : getColor()} stopOpacity="0.7" />
           </linearGradient>
           <filter id="glow">
             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -95,7 +98,7 @@ export default function ScoreChart({ score, enhanced = false, size = 200 }: Scor
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            AI Enhanced
+            AI強化
           </motion.div>
         )}
       </div>

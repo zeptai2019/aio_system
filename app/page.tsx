@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import Image from "@/components/shared/image/Image";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Import shared components
@@ -65,7 +66,7 @@ export default function StyleGuidePage() {
       const urlObj = new URL(processedUrl);
       // Check if it's http or https
       if (!['http:', 'https:'].includes(urlObj.protocol)) {
-        setUrlError('Please enter a valid URL (e.g., example.com)');
+        setUrlError('有効なURLを入力してください（例：example.com）');
         return;
       }
     } catch (error) {
@@ -107,12 +108,12 @@ export default function StyleGuidePage() {
       } else {
         console.error('Analysis failed:', data.error);
         setIsAnalyzing(false);
-        alert('Failed to analyze website. Please check the URL and try again.');
+        alert('ウェブサイトの分析に失敗しました。URLを確認して再試行してください。');
       }
     } catch (error) {
       console.error('Analysis error:', error);
       setIsAnalyzing(false);
-      alert('An error occurred while analyzing the website.');
+      alert('ウェブサイトの分析中にエラーが発生しました。');
     }
   };
 
@@ -147,12 +148,33 @@ export default function StyleGuidePage() {
                 >
                   <ButtonUI variant="tertiary">
                     <GithubIcon />
-                    Use this Template
+                    このテンプレートを使用
                   </ButtonUI>
                 </a>
               </div>
             </div>
           </HeaderWrapper>
+        </div>
+
+        {/* Brand banner under header */}
+        <div className="hidden w-full flex justify-center bg-background-base">
+          <div className="cmw-container w-full px-16 py-20">
+            <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-12">
+              <div className="flex-1 text-center lg:text-left">
+                <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+                  あなたのウェブサイトはAI対応していますか？
+                </h1>
+              </div>
+              <div className="flex-1 flex justify-center lg:justify-end">
+                <Image
+              src="mikatan"
+              alt="Zept ブランドビジュアル"
+              raw
+              className="w-full max-w-[360px] md:max-w-[420px] h-auto rounded-16 border border-border-faint shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
+            />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Hero Section */}
@@ -172,21 +194,33 @@ export default function StyleGuidePage() {
                   transition={{ duration: 0.5 }}
                   className="relative container px-16"
                 >
-                  <HomeHeroBadge />
+                  <div className="grid gap-12 items-center lg:grid-cols-2">
+                    <div>
+                  {/* HomeHeroBadge removed per request */}
                   <HomeHeroTitle />
                   
                   <p className="text-center text-body-large">
-                    Analyze how AI-ready your webpage is from a single
+                    単一のページスナップショットから、あなたのウェブページが
                     <br className="lg-max:hidden" />
-                    page snapshot. High-signal metrics for LLM compatibility.
+                    AI対応しているかを分析します。LLM互換性の高品質メトリクスを提供。
                   </p>
                   <Link
                     className="bg-black-alpha-4 hover:bg-black-alpha-6 rounded-6 px-8 lg:px-6 text-label-large h-30 lg:h-24 block mt-8 mx-auto w-max gap-4 transition-all"
                     href="#"
                     onClick={(e) => e.preventDefault()}
                   >
-                    Powered by Firecrawl.
+                    Zeptによって提供。
                   </Link>
+                    </div>
+                  <div className="hidden">
+                    <Image
+                      src="mikatan"
+                      alt="AI対応を補助するイラスト"
+                      raw
+                      className="w-full max-w-[520px] h-auto rounded-16 border border-border-faint shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
+                    />
+                  </div>
+                </div>
                 </motion.div>
               ) : (
                 <motion.div

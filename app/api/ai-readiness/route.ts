@@ -93,13 +93,13 @@ async function analyzeHTML(html: string, metadata: any, url: string): Promise<Ch
   
   results.push({
     id: 'heading-structure',
-    label: 'Heading Hierarchy',
+    label: '見出し階層',
     status: headingScore >= 80 ? 'pass' : headingScore >= 50 ? 'warning' : 'fail',
     score: headingScore,
-    details: headingIssues.length > 0 ? headingIssues.join(', ') : `Perfect hierarchy with ${h1Count} H1 and logical structure`,
+    details: headingIssues.length > 0 ? headingIssues.join(', ') : `完璧な階層構造：H1が${h1Count}個、論理的な構造`,
     recommendation: headingScore < 80 ? 
-      'Use exactly one H1 and maintain logical heading hierarchy (H1→H2→H3)' : 
-      'Excellent heading structure for AI comprehension'
+      'H1を1つだけ使用し、論理的な見出し階層（H1→H2→H3）を維持してください' : 
+      'AI理解に優れた見出し構造です'
   });
   
   console.log('[AI-READY] HTML Check 3/5: Calculating readability score...');
@@ -112,30 +112,30 @@ async function analyzeHTML(html: string, metadata: any, url: string): Promise<Ch
   if (readabilityScore >= 70) {
     normalizedScore = 100;
     readabilityStatus = 'pass';
-    readabilityDetails = `Very readable (Flesch: ${Math.round(readabilityScore)})`;
+    readabilityDetails = `非常に読みやすい (Flesch: ${Math.round(readabilityScore)})`;
   } else if (readabilityScore >= 50) {
     normalizedScore = 80;
     readabilityStatus = 'pass';
-    readabilityDetails = `Good readability (Flesch: ${Math.round(readabilityScore)})`;
+    readabilityDetails = `読みやすい (Flesch: ${Math.round(readabilityScore)})`;
   } else if (readabilityScore >= 30) {
     normalizedScore = 50;
     readabilityStatus = 'warning';
-    readabilityDetails = `Difficult to read (Flesch: ${Math.round(readabilityScore)})`;
+    readabilityDetails = `読みにくい (Flesch: ${Math.round(readabilityScore)})`;
   } else {
     normalizedScore = 20;
     readabilityStatus = 'fail';
-    readabilityDetails = `Very difficult (Flesch: ${Math.round(readabilityScore)})`;
+    readabilityDetails = `非常に読みにくい (Flesch: ${Math.round(readabilityScore)})`;
   }
   
   results.push({
     id: 'readability',
-    label: 'Content Readability',
+    label: 'コンテンツ可読性',
     status: readabilityStatus,
     score: normalizedScore,
     details: readabilityDetails,
     recommendation: normalizedScore < 80 ? 
-      'Simplify sentences and use clearer language for better AI comprehension' : 
-      'Content is clearly written and AI-friendly'
+      'AI理解を向上させるために文章を簡潔にし、より明確な言語を使用してください' : 
+      'コンテンツは明確に書かれており、AIに適しています'
   });
   
   console.log('[AI-READY] HTML Check 4/5: Checking metadata quality...');
@@ -158,42 +158,42 @@ async function analyzeHTML(html: string, metadata: any, url: string): Promise<Ch
   
   if (hasOgTitle) {
     metaScore += 30;
-    metaDetails.push('Title ✓');
+    metaDetails.push('タイトル ✓');
   } else if (html.includes('<title')) {
     metaScore += 20;
-    metaDetails.push('Basic title');
+    metaDetails.push('基本タイトル');
   }
   
   if (hasOgDescription) {
     metaScore += 25;
     if (hasGoodDescLength) {
       metaScore += 10;
-      metaDetails.push('Description ✓');
+      metaDetails.push('説明 ✓');
     } else {
-      metaDetails.push('Description');
+      metaDetails.push('説明');
     }
   }
   
   if (hasAuthor) {
     metaScore += 10;
-    metaDetails.push('Author ✓');
+    metaDetails.push('作者 ✓');
   }
   if (hasPublishDate) {
     metaScore += 10;
-    metaDetails.push('Date ✓');
+    metaDetails.push('日付 ✓');
   }
   
   // Cap at 100
   metaScore = Math.min(100, metaScore);
   results.push({
     id: 'meta-tags',
-    label: 'Metadata Quality',
+    label: 'メタデータ品質',
     status: metaScore >= 70 ? 'pass' : metaScore >= 40 ? 'warning' : 'fail',
     score: metaScore,
-    details: metaDetails.length > 0 ? metaDetails.join(', ') : 'Missing critical metadata',
+    details: metaDetails.length > 0 ? metaDetails.join(', ') : '重要なメタデータが不足',
     recommendation: metaScore < 70 ? 
-      'Add title, description (70-160 chars), author, and publish date metadata' : 
-      'Metadata provides excellent context for AI'
+      'タイトル、説明（70-160文字）、作者、公開日のメタデータを追加してください' : 
+      'メタデータがAIに優れたコンテキストを提供しています'
   });
   
   console.log('[AI-READY] HTML Check 5/5: Checking semantic HTML and accessibility...');
@@ -212,11 +212,11 @@ async function analyzeHTML(html: string, metadata: any, url: string): Promise<Ch
   
   results.push({
     id: 'semantic-html',
-    label: 'Semantic HTML',
+    label: 'セマンティックHTML',
     status: semanticScore >= 80 ? 'pass' : semanticScore >= 40 ? 'warning' : 'fail',
     score: semanticScore,
-    details: `Found ${semanticCount} semantic HTML5 elements`,
-    recommendation: semanticScore < 80 ? 'Use more semantic HTML5 elements (article, nav, main, section, etc.)' : 'Excellent use of semantic HTML'
+    details: `${semanticCount}個のセマンティックHTML5要素を発見`,
+    recommendation: semanticScore < 80 ? 'より多くのセマンティックHTML5要素（article、nav、main、sectionなど）を使用してください' : 'セマンティックHTMLの優れた使用'
   });
   
   // 7. Check accessibility (Lower Signal but still important)
@@ -240,11 +240,11 @@ async function analyzeHTML(html: string, metadata: any, url: string): Promise<Ch
   
   results.push({
     id: 'accessibility',
-    label: 'Accessibility',
+    label: 'アクセシビリティ',
     status: accessibilityScore >= 80 ? 'pass' : accessibilityScore >= 50 ? 'warning' : 'fail',
     score: Math.round(accessibilityScore),
-    details: `${Math.round(altTextRatio)}% images have alt text, ARIA labels: ${hasAriaLabels ? 'Yes' : 'No'}`,
-    recommendation: accessibilityScore < 80 ? 'Add alt text to all images and use ARIA labels for interactive elements' : 'Good accessibility implementation'
+    details: `${Math.round(altTextRatio)}%の画像にaltテキスト、ARIAラベル: ${hasAriaLabels ? 'あり' : 'なし'}`,
+    recommendation: accessibilityScore < 80 ? 'すべての画像にaltテキストを追加し、インタラクティブ要素にARIAラベルを使用してください' : '良好なアクセシビリティ実装'
   });
   return results;
 }
@@ -273,17 +273,17 @@ async function checkAdditionalFiles(domain: string): Promise<{ robots: CheckResu
     label: 'Robots.txt',
     status: 'fail',
     score: 0,
-    details: 'No robots.txt file found',
-    recommendation: 'Create a robots.txt file with AI crawler directives'
+    details: 'robots.txtファイルが見つかりません',
+    recommendation: 'AIクローラー指示を含むrobots.txtファイルを作成してください'
   };
   
   let sitemapCheck: CheckResult = {
     id: 'sitemap',
-    label: 'Sitemap',
+    label: 'サイトマップ',
     status: 'fail',
     score: 0,
-    details: 'No sitemap.xml found',
-    recommendation: 'Generate and submit an XML sitemap'
+    details: 'sitemap.xmlが見つかりません',
+    recommendation: 'XMLサイトマップを生成して送信してください'
   };
   
   let llmsCheck: CheckResult = {
@@ -291,8 +291,8 @@ async function checkAdditionalFiles(domain: string): Promise<{ robots: CheckResu
     label: 'LLMs.txt',
     status: 'fail',
     score: 0,
-    details: 'No llms.txt file found',
-    recommendation: 'Add an llms.txt file to define AI usage permissions'
+    details: 'llms.txtファイルが見つかりません',
+    recommendation: 'AI使用権限を定義するllms.txtファイルを追加してください'
   };
   
   // Store robots.txt content for sitemap extraction
@@ -324,8 +324,8 @@ async function checkAdditionalFiles(domain: string): Promise<{ robots: CheckResu
             label: 'Robots.txt',
             status: score >= 80 ? 'pass' : score >= 40 ? 'warning' : 'fail',
             score,
-            details: `Robots.txt found${hasSitemap ? ` with ${sitemapUrls.length} sitemap reference(s)` : ''}`,
-            recommendation: score < 80 ? 'Add sitemap reference to robots.txt' : 'Robots.txt properly configured'
+            details: `Robots.txt発見${hasSitemap ? `（${sitemapUrls.length}個のサイトマップ参照付き）` : ''}`,
+            recommendation: score < 80 ? 'robots.txtにサイトマップ参照を追加してください' : 'Robots.txtが適切に設定されています'
           };
         }
       })
@@ -354,8 +354,8 @@ async function checkAdditionalFiles(domain: string): Promise<{ robots: CheckResu
                 label: 'LLMs.txt',
                 status: 'pass',
                 score: 100,
-                details: `${filename} file found with AI usage guidelines`,
-                recommendation: 'Great! You have defined AI usage permissions'
+                details: `${filename}ファイル発見（AI使用ガイドライン付き）`,
+                recommendation: '素晴らしい！AI使用権限を定義しています'
               };
             }
           }
@@ -405,11 +405,11 @@ async function checkAdditionalFiles(domain: string): Promise<{ robots: CheckResu
           const fromRobots = sitemapUrls.includes(sitemapUrl);
           sitemapCheck = {
             id: 'sitemap',
-            label: 'Sitemap',
+            label: 'サイトマップ',
             status: 'pass',
             score: 100,
-            details: `Valid XML sitemap found${fromRobots ? ' (referenced in robots.txt)' : ` at ${sitemapUrl.replace(cleanUrl, '')}`}`,
-            recommendation: 'Sitemap is properly configured'
+            details: `有効なXMLサイトマップ発見${fromRobots ? '（robots.txtで参照済み）' : `（${sitemapUrl.replace(cleanUrl, '')}に配置）`}`,
+            recommendation: 'サイトマップが適切に設定されています'
           };
           break; // Found a valid sitemap, stop checking
         }
@@ -460,7 +460,7 @@ export async function POST(request: NextRequest) {
     let { url } = await request.json();
     
     if (!url) {
-      return NextResponse.json({ error: 'URL is required' }, { status: 400 });
+      return NextResponse.json({ error: 'URLが必要です' }, { status: 400 });
     }
     
     // Ensure URL has protocol
@@ -472,7 +472,7 @@ export async function POST(request: NextRequest) {
     try {
       new URL(url);
     } catch (e) {
-      return NextResponse.json({ error: 'Invalid URL format' }, { status: 400 });
+      return NextResponse.json({ error: '無効なURL形式です' }, { status: 400 });
     }
     
     console.log('[AI-READY] Step 1/4: Starting Firecrawl scrape...');
@@ -487,7 +487,7 @@ export async function POST(request: NextRequest) {
       console.log(`[AI-READY] Step 1/4: Firecrawl scrape completed in ${Date.now() - scrapeStartTime}ms`);
     } catch (scrapeError) {
       console.error('Firecrawl scrape error:', scrapeError);
-      return NextResponse.json({ error: 'Failed to scrape website. Please check the URL.' }, { status: 500 });
+      return NextResponse.json({ error: 'ウェブサイトのスクレイプに失敗しました。URLを確認してください。' }, { status: 500 });
     }
     
     // Check different possible response structures
@@ -496,7 +496,7 @@ export async function POST(request: NextRequest) {
     
     if (!html) {
       console.error('No HTML content found in response');
-      return NextResponse.json({ error: 'Failed to extract content from website' }, { status: 500 });
+      return NextResponse.json({ error: 'ウェブサイトからコンテンツの抽出に失敗しました' }, { status: 500 });
     }
     
     console.log('[AI-READY] Step 2/4: Analyzing HTML content...');
@@ -596,7 +596,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('AI Readiness analysis error:', error);
     return NextResponse.json(
-      { error: 'Failed to analyze website' },
+      { error: 'ウェブサイトの分析に失敗しました' },
       { status: 500 }
     );
   }

@@ -12,8 +12,8 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Is Your Website AI Ready?",
-  description: "UI components and design system for Firecrawl",
+  title: "あなたのウェブサイトはAI対応していますか？",
+  description: "ZeptのUIコンポーネントとデザインシステム",
   icons: {
     icon: "/favicon.png",
   },
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
         <ColorStyles />
       </head>

@@ -13,10 +13,10 @@ interface InlineResultsProps {
 }
 
 const analysisSteps = [
-  "Fetching website content...",
-  "Checking for LLMs.txt...",
-  "Analyzing HTML structure...",
-  "Calculating AI readiness...",
+  "ウェブサイトコンテンツを取得中...",
+  "LLMs.txtを確認中...",
+  "HTML構造を分析中...",
+  "AI対応度を計算中...",
 ];
 
 // Placeholder data for the results
@@ -203,7 +203,7 @@ export default function InlineResults({
                     transition={{ delay: 0.7 }}
                     className="text-label-medium text-black-alpha-48"
                   >
-                    AI Ready
+                    AI対応
                   </motion.div>
                 </div>
               </div>
@@ -222,22 +222,22 @@ export default function InlineResults({
                 label: "LLMs.txt", 
                 value: mockResults.llmsTxt, 
                 icon: FileText,
-                description: "AI instructions",
-                detail: mockResults.llmsTxt ? "Found" : "Missing"
+                description: "AI指示",
+                detail: mockResults.llmsTxt ? "発見" : "未発見"
               },
               { 
-                label: "Structured Data", 
+                label: "構造化データ", 
                 value: mockResults.structuredData, 
                 icon: Code,
-                description: "Schema markup",
-                detail: mockResults.structuredData ? "Detected" : "Not found"
+                description: "スキーママークアップ",
+                detail: mockResults.structuredData ? "検出済み" : "未検出"
               },
               { 
-                label: "Semantic HTML", 
+                label: "セマンティックHTML", 
                 value: mockResults.semanticHTML, 
                 icon: Globe,
-                description: "HTML5 tags",
-                detail: mockResults.semanticHTML ? "Good" : "Needs work"
+                description: "HTML5タグ",
+                detail: mockResults.semanticHTML ? "良好" : "要改善"
               },
             ].map((item, index) => (
               <motion.div
@@ -308,11 +308,11 @@ export default function InlineResults({
           >
             <AlertCircle className="w-16 h-16 text-heat-100 mt-2" />
             <div className="flex-1">
-              <div className="text-label-medium text-accent-black mb-4">Quick Tip</div>
+              <div className="text-label-medium text-accent-black mb-4">クイックヒント</div>
               <div className="text-body-small text-black-alpha-64">
                 {mockResults.semanticHTML 
-                  ? "Your site has good semantic HTML structure for AI understanding."
-                  : "Add semantic HTML5 elements to improve AI comprehension of your content."}
+                  ? "あなたのサイトはAI理解に適した良いセマンティックHTML構造を持っています。"
+                  : "コンテンツのAI理解を向上させるためにセマンティックHTML5要素を追加してください。"}
               </div>
             </div>
           </motion.div>
@@ -328,10 +328,10 @@ export default function InlineResults({
               onClick={onReset}
               className="flex-1 px-16 py-10 bg-black-alpha-4 hover:bg-black-alpha-6 rounded-8 text-label-medium transition-all"
             >
-              Try Another
+              別のサイトを試す
             </button>
             <button className="flex-1 px-16 py-10 bg-heat-100 hover:bg-heat-200 text-white rounded-8 text-label-medium transition-all shadow-lg hover:shadow-xl">
-              View Details
+              詳細を表示
             </button>
           </motion.div>
         </motion.div>
