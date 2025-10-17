@@ -178,7 +178,7 @@ export default function StyleGuidePage() {
         </div>
 
         {/* Hero Section */}
-        <section className="overflow-x-clip" id="home-hero">
+        <section className="overflow-x-clip flex flex-col items-center justify-center" id="home-hero">
           <div className={`pt-28 lg:pt-254 lg:-mt-100 pb-115 relative ${isAnalyzing || showResults ? '' : ''}`} id="hero-content">
             <HomeHeroPixi />
             <HeroFlame />
